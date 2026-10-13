@@ -6,6 +6,7 @@ import { pageHead, commanderBtn, secHead } from '../core/parts'
 import { productBySlug, productCard } from '../core/cards'
 import { wireProducts } from '../core/interactions'
 import { networkProducts } from '../data/network-products'
+import { photoFigure } from '../data/photos'
 
 const range = ['choc-o-roi-caramel-individuel', 'choc-o-roi-chocolat-individuel', 'choc-o-roi-vanille-individuel', 'entremet-choc-o-roi-a-partager', 'choc-o-roi-gateau-en-boite-patissiere', 'choc-o-roi-gateau-en-boite-peuplier', 'choc-o-roi-coupe-en-14']
   .map((s) => productBySlug(s)).filter((p): p is NonNullable<typeof p> => !!p)
@@ -33,7 +34,7 @@ ${pageHead('Le Choc’O Roi, <span class="it">couche par couche</span>', 'Deux s
 
 <section class="section" aria-labelledby="hist-h">
   <div class="container two">
-    <div><h2 id="hist-h" data-split>Né à Angers, servi à Rennes</h2></div>
+    <div><h2 id="hist-h" data-split>Né à Angers, servi à Rennes</h2>${photoFigure('vitrine-chocolat', 'ph-fig wide', 'Gâteaux et pâtisseries en vitrine. Photo d’illustration (Unsplash) : ce n’est pas le Choc’O Roi, que seuls nos dessins représentent.')}</div>
     <div class="prose" data-reveal>
       <p>Le Choc’O Roi a été lancé le 3 février 2013 au château du Roi René, à Angers. Il a reçu depuis le label « Produit en Anjou ». C’est une marque déposée du réseau Maison Bécam, vendue seulement dans ses boutiques.</p>
       <p>La fleur de lys qui le coiffe est celle des armes de l’Anjou. À Rennes, elle croise l’hermine : une fleur de sel de Guérande plus tard, il est tout à fait breton.</p>

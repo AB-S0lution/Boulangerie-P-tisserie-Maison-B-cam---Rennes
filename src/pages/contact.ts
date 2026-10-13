@@ -3,6 +3,7 @@ import { business, directionsUrl, mapsUrl } from '../data/business'
 import { holidayNote } from '../data/hours'
 import { hoursTable, pageHead, mapPane, wireMap } from '../core/parts'
 import { $ } from '../core/dom'
+import { photoFigure } from '../data/photos'
 
 const main = `
 ${pageHead('Contact et <span class="it">accès</span>', 'Ouvert tous les jours de 7 h à 20 h, au pied du métro Jules Ferry.', 'Contact', 'contact')}
@@ -19,10 +20,11 @@ ${pageHead('Contact et <span class="it">accès</span>', 'Ouvert tous les jours d
     <h3 style="margin:32px 0 10px">Horaires</h3>${hoursTable()}
     <p class="note" style="margin-top:12px">${holidayNote} Le 1er mai 2025, la boutique était fermée.</p>
   </div>
-  <div>${mapPane(['metro', 'droit'])}</div>
+  <div>${mapPane(['metro', 'droit'])}${photoFigure('boulangerie-rue', 'ph-fig wide', 'Comptoir et étagères de pains. Photo d’illustration (Unsplash), pas la boutique.')}</div>
 </div></section>
 <section class="section tight" aria-labelledby="f-h"><div class="container two">
-  <div><h2 id="f-h" data-split>Un message ?</h2><p class="lead" style="margin-top:14px">Le formulaire ouvre votre messagerie : rien n’est envoyé depuis ce site.</p></div>
+  <div><h2 id="f-h" data-split>Un message ?</h2><p class="lead" style="margin-top:14px">Le formulaire ouvre votre messagerie : rien n’est envoyé depuis ce site.</p>
+    ${photoFigure('salle-bois', 'ph-fig wide', 'Environ 50 places assises au salon de thé. Photo d’illustration (Unsplash), pas la salle de Rennes.')}</div>
   <form class="form" data-form>
     <label>Votre nom<input name="nom" autocomplete="name" required></label>
     <label>Votre e-mail<input name="mail" type="email" autocomplete="email" required></label>

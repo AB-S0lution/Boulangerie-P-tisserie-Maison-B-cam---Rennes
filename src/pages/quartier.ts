@@ -3,6 +3,7 @@ import { business, mapsUrl, directionsUrl } from '../data/business'
 import { landmarks, transport } from '../data/quartier'
 import { pageHead, secHead, mapPane, wireMap } from '../core/parts'
 import { url } from '../core/dom'
+import { photoFigure } from '../data/photos'
 
 const icons: Record<string, string> = { metro: 'Métro', bus: 'Bus', car: 'Car', velo: 'Vélo' }
 
@@ -22,11 +23,11 @@ ${pageHead('Le quartier, <span class="it">face au campus</span>', 'Au pied du m�
   <p class="small" style="margin-top:16px;color:#cbd9e1">Stationnement client : non communiqué, privilégiez métro, bus ou vélo.</p>
 </div></section>
 <section class="section" aria-labelledby="g-h"><div class="container two">
-  <div><h2 id="g-h" data-split>Jean Guéhenno</h2></div>
+  <div><h2 id="g-h" data-split>Jean Guéhenno</h2>${photoFigure('petrissage', 'ph-fig wide', 'Le travail des mains. Photo d’illustration (Unsplash).')}</div>
   <div class="prose" data-reveal><p>La rue porte le nom de Jean Guéhenno (1890-1978), écrivain né à Fougères, fils de cordonnier. Il quitte l’école à 14 ans pour travailler en usine, étudie seul puis devient professeur et essayiste. Un clin d’œil au travail des mains et à la transmission, deux idées d’une boulangerie.</p></div>
 </div></section>
 <section class="section tight" aria-labelledby="l-h"><div class="container two">
-  <div><h2 id="l-h" data-split>Un samedi aux Lices <span class="tag-sample">idée d’exemple</span></h2></div>
+  <div><h2 id="l-h" data-split>Un samedi aux Lices <span class="tag-sample">idée d’exemple</span></h2>${photoFigure('marche-etals', 'ph-fig wide', 'Un marché en plein air. Photo d’illustration (Unsplash), pas le marché des Lices.')}</div>
   <ol class="steps" data-reveal><li><div><b>7 h 30 : le marché des Lices</b><span>Environ 1,1 km, 15 minutes à pied. Marché du samedi depuis 1622.</span></div></li><li><div><b>10 h : un café, un kouign-amann</b><span>Retour rue Jean Guéhenno, ${business.address.street}.</span></div></li><li><div><b>16 h : goûter au Thabor</b><span>À 500 m, avec un Choc’O Roi individuel dans le sac.</span></div></li></ol>
 </div></section>`
 

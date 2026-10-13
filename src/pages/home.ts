@@ -57,7 +57,7 @@ const main = `
 <section class="section" aria-labelledby="vitrine-h">
   <div class="container">
     <div class="sec-head"><h2 id="vitrine-h" data-split>En vitrine maintenant</h2><p class="lead" data-reveal data-shelf-caption></p></div>
-    <div class="shelf" data-shelf aria-live="polite"></div>
+    <div class="shelf" data-shelf aria-live="polite"></div><p class="swipe-hint" aria-hidden="true"><span>Faites glisser</span></p>
   </div>
 </section>
 
@@ -146,6 +146,7 @@ const main = `
 <section class="section tight photo-strip-sec" aria-labelledby="ps-h">
   <div class="container"><div class="sec-head"><h2 id="ps-h" data-split>Du four <span class="it">à la vitrine</span></h2><p class="lead" data-reveal>Pains, viennoiseries, pâtisseries : un aperçu en images. <span class="tag-sample">Photos d’illustration</span></p></div></div>
   <div class="photo-strip" role="list">${photos.filter((p) => ['Pains', 'Viennoiserie', 'Pâtisserie', 'Vitrine'].includes(p.theme)).slice(0, 14).map((p) => `<figure role="listitem">${photoImg(p)}<figcaption>${p.alt}</figcaption></figure>`).join('')}</div>
+  <div class="container"><p class="swipe-hint" aria-hidden="true"><span>Faites glisser</span></p></div>
   <div class="container"><div class="btn-row" style="margin-top:20px"><a class="btn" href="${url('galerie/')}">Toute la galerie</a></div></div>
 </section>
 

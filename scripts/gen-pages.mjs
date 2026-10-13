@@ -67,6 +67,7 @@ for (const [path, mod, title, desc] of pages) {
         if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
           d.classList.add('js-motion');
           try { if (sessionStorage.getItem('bec-door') === '1') d.classList.add('door-in'); } catch (e) {}
+          setTimeout(function () { if (!d.classList.contains('motion-ready')) d.classList.remove('js-motion', 'door-in'); }, 3000);
         }
       })();
     </script>

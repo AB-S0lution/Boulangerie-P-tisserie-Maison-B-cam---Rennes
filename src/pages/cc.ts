@@ -6,12 +6,14 @@ import { business } from '../data/business'
 import { faq } from '../data/faq'
 import { productBySlug } from '../core/cards'
 import { clearList, getList, setQty } from '../core/list'
+import { photoFigure, photoForIllustration, photoImg } from '../data/photos'
 
 const main = `
 ${pageHead('Click &amp; <span class="it">Collect</span>', 'Commandez avant 18 h pour le lendemain, retirez de 7 h à 20 h. Ici, préparez votre liste ; la commande se fait sur la plateforme.', 'Click & Collect', 'cc')}
 <section class="section" aria-labelledby="how-h"><div class="container two">
   <div><h2 id="how-h" data-split>Comment ça marche</h2>${ccSteps()}
-    <div class="code-card" style="margin-top:28px"><span class="label">Code promo plateforme</span><b>${business.promoCode}</b><p class="muted small">10 % dès 5 € d’achat, sur la plateforme de commande. À vérifier au moment de commander.</p></div></div>
+    <div class="code-card" style="margin-top:28px"><span class="label">Code promo plateforme</span><b>${business.promoCode}</b><p class="muted small">10 % dès 5 € d’achat, sur la plateforme de commande. À vérifier au moment de commander.</p></div>
+    ${photoFigure('pain-sac-kraft', 'ph-fig wide', 'Retrait au comptoir, sans attendre. Photo d’illustration (Unsplash).')}</div>
   <div><h2 data-split>Ma liste</h2>
     <p class="muted small" style="margin:10px 0 16px">Une aide-mémoire enregistrée dans votre navigateur. Elle ne passe aucune commande et n’est envoyée nulle part.</p>
     <div data-list></div>
@@ -23,6 +25,11 @@ ${pageHead('Click &amp; <span class="it">Collect</span>', 'Commandez avant 18 h 
   <div class="faq-list" style="max-width:780px">${faq.filter((f) => ['cc', 'code', 'allergenes', 'paiement'].includes(f.id)).map((f) => `<details><summary>${f.q}</summary><div class="ans"><p>${f.a}</p></div></details>`).join('')}</div>
   <p style="margin-top:20px"><a class="link" href="${url('faq/')}">Toutes les questions</a></p></div></section>`
 
+function thumb(key: string): string {
+  const ph = photoForIllustration(key)
+  return ph ? photoImg({ ...ph, alt: '' }, 'photo thumb') : illo(key)
+}
+
 function render(): void {
   const el = $('[data-list]')
   if (!el) return
@@ -33,7 +40,7 @@ function render(): void {
     return
   }
   const total = rows.reduce((a, r) => a + r.p!.priceCents * r.q, 0)
-  setHTML(el, `<div class="list-items">${rows.map(({ p, q }) => `<div class="list-item"><div class="illo-box">${illo(p!.illustration)}</div><div><b>${p!.name}</b><br><span class="price muted small">${money(p!.priceCents)}</span></div><div class="qty" role="group" aria-label="Quantité : ${p!.name}"><button type="button" data-dec="${p!.slug}" aria-label="Retirer un">−</button><span>${q}</span><button type="button" data-inc="${p!.slug}" aria-label="Ajouter un">+</button></div></div>`).join('')}</div>
+  setHTML(el, `<div class="list-items">${rows.map(({ p, q }) => `<div class="list-item"><div class="illo-box">${thumb(p!.illustration)}</div><div><b>${p!.name}</b><br><span class="price muted small">${money(p!.priceCents)}</span></div><div class="qty" role="group" aria-label="Quantité : ${p!.name}"><button type="button" data-dec="${p!.slug}" aria-label="Retirer un">−</button><span>${q}</span><button type="button" data-inc="${p!.slug}" aria-label="Ajouter un">+</button></div></div>`).join('')}</div>
   <p style="margin-top:14px;font-weight:600">Total indicatif : <span class="price">${money(total)}</span></p><p class="small muted">Prix indicatifs relevés en octobre 2026.</p>`)
 }
 

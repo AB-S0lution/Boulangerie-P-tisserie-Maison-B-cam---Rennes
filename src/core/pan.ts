@@ -1,6 +1,7 @@
-// « Une journée rue Jean Guéhenno »: pinned horizontal pan (6 panes). Desktop only, never under reduced motion.
+// « Une journée rue Jean Guéhenno »: pinned horizontal pan (6 panes). Desktop pointer only, never under reduced motion.
+// Touch gets the stacked panes, each fading up with the shared reveal.
 
-import { gsap, ScrollTrigger } from './motion'
+import { gsap, MQ, ScrollTrigger } from './motion'
 import { prefersReducedMotion } from './dom'
 
 export function mountPan(section: HTMLElement): void {
@@ -9,7 +10,9 @@ export function mountPan(section: HTMLElement): void {
   const bar = section.querySelector<HTMLElement>('.day-progress i')
   if (!pin || !track) return
   const mm = gsap.matchMedia()
-  mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
+  // Mouse/trackpad desktops only: on touch (phones, tablets incl. iPad landscape) the six panes stay stacked,
+  // a long horizontal pin under a finger is fragile and fights the native scroll.
+  mm.add(MQ.desktop, () => {
     document.body.classList.add('js-pan')
     ScrollTrigger.refresh()
     const dist = () => Math.max(0, track.scrollWidth - window.innerWidth)

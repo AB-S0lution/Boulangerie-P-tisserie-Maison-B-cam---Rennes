@@ -4,6 +4,7 @@ import { faq } from '../data/faq'
 import { business, mapsUrl } from '../data/business'
 import { pageHead } from '../core/parts'
 import { illo } from '../core/art'
+import { photoBand } from '../data/photos'
 
 const main = `
 ${pageHead('Questions <span class="it">fréquentes</span>', '14 réponses sur les horaires, les commandes, la carte et le lieu.', 'FAQ', 'faq')}
@@ -11,6 +12,7 @@ ${pageHead('Questions <span class="it">fréquentes</span>', '14 réponses sur le
   <div class="field" style="max-width:none;margin-bottom:24px"><label class="sr" for="fq">Rechercher dans la FAQ</label><input id="fq" type="search" placeholder="Rechercher : dimanche, allergènes, brunch" autocomplete="off"></div>
   <p class="result-count" role="status" aria-live="polite" data-n></p>
   <div class="faq-list" data-faq></div>
+  <div style="margin-top:40px">${photoBand(['pain-vitrine-verre', 'croissant-blanc', 'cafe-tasse'], 'Une autre question ? Appelez la boutique. Photos d’illustration (Unsplash).')}</div>
 </div></section>`
 
 const norm = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()

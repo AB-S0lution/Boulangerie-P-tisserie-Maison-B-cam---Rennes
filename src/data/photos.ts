@@ -2,7 +2,7 @@
 // Aucune de ces images ne montre la boutique de Rennes, ses produits ou le réseau Maison Bécam.
 // Fichiers dans public/photos/, servis sous la base Vite (import.meta.env.BASE_URL).
 
-export type PhotoTheme = 'Fournil' | 'Vitrine' | 'Viennoiserie' | 'Pâtisserie' | 'Pains'
+export type PhotoTheme = 'Fournil' | 'Vitrine' | 'Viennoiserie' | 'Pâtisserie' | 'Pains' | 'Salon de thé' | 'Marché'
 
 export interface Photo {
   slug: string
@@ -15,7 +15,7 @@ export interface Photo {
   theme: PhotoTheme
 }
 
-const raw: [slug: string, id: string, alt: string, w: number, h: number, theme: PhotoTheme][] = [
+const raw: [slug: string, id: string, alt: string, w: number, h: number, theme: PhotoTheme, page?: string][] = [
   ['croissants-table', '1623334044303-241021148842', 'Croissants dorés posés en rang sur une table', 1200, 800, 'Viennoiserie'],
   ['croissant-blanc', '1691480162735-9b91238080f6', 'Un croissant seul sur un fond clair', 1200, 1200, 'Viennoiserie'],
   ['croissant-plateau-inox', '1530610476181-d83430b64dcd', 'Croissants entassés sur un plateau en métal', 1200, 1600, 'Viennoiserie'],
@@ -51,20 +51,27 @@ const raw: [slug: string, id: string, alt: string, w: number, h: number, theme: 
   ['rouleau-patissier', '1480215825332-69732b261cc2', 'Rouleau à pâtisserie sur une pâte farinée', 1200, 800, 'Fournil'],
   ['pain-plateau-rond', '1549413468-cd78edb7e75c', 'Pains ronds farinés et grignés posés sur une toile de jute', 1200, 1800, 'Pains'],
   ['pains-sortis-four', '1547197309-082bdc50ce8b', 'Pains tout juste sortis du four', 1200, 652, 'Fournil'],
+  ['cafe-tasse', '1572286258217-40142c1c6a70', 'Un expresso dans une tasse bleu nuit, vu du dessus', 1200, 1500, 'Salon de thé', 'maO-qIKLqi8'],
+  ['cafe-table-noire', '1738197112505-f79710be93b5', 'Tasse à café blanche sur une table noire brillante', 1200, 1735, 'Salon de thé', 'BYYvJl3tIqY'],
+  ['salle-bois', '1544031064-9de80864ade5', 'Salle de café lumineuse, tables et chaises en bois', 1200, 801, 'Salon de thé', 'k6w8miMpfUI'],
+  ['marche-legumes', '1591586116988-62fe65164f8d', 'Étal de marché : chou-fleur, brocoli, radis et oignons nouveaux', 1200, 981, 'Marché', 'Zaiuy5dKeCk'],
+  ['quiche', '1721460195314-b18fa6e64a10', 'Quiche aux asperges vertes sur un plan de travail', 1200, 900, 'Vitrine', 'PD6nysl7yZI'],
+  ['salade-bol', '1547496502-affa22d38842', 'Salade composée dans un bol sombre : avocat, tomates cerises, sésame', 1200, 1029, 'Vitrine', 'AiHJiRCwB3w'],
+  ['marche-etals', '1651346846962-713719196b8d', 'Étals de légumes et de tomates sur un marché en plein air', 1200, 800, 'Marché', '11dJNhmL5vk'],
 ]
 
-export const photos: Photo[] = raw.map(([slug, id, alt, w, h, theme]) => ({
+export const photos: Photo[] = raw.map(([slug, id, alt, w, h, theme, page]) => ({
   slug,
   src: `${import.meta.env.BASE_URL}photos/${slug}.jpg`,
   alt,
   credit: 'Unsplash',
-  url: `https://unsplash.com/photos/${id}`,
+  url: `https://unsplash.com/photos/${page ?? id}`,
   w,
   h,
   theme,
 }))
 
-export const photoThemes: PhotoTheme[] = ['Fournil', 'Vitrine', 'Viennoiserie', 'Pâtisserie', 'Pains']
+export const photoThemes: PhotoTheme[] = ['Fournil', 'Vitrine', 'Viennoiserie', 'Pâtisserie', 'Pains', 'Salon de thé', 'Marché']
 
 const bySlug = new Map(photos.map((p) => [p.slug, p]))
 export const photo = (slug: string): Photo => bySlug.get(slug) ?? photos[0]
@@ -90,6 +97,28 @@ const byIllustration: Record<string, string> = {
   plateau: 'cafe-et-pains',
   noeud: 'vitrine-patisseries',
   thabor: 'boulangerie-rue',
+  bagel: 'sandwich-jambon',
+  bun: 'sandwich-jambon',
+  burger: 'sandwich-jambon',
+  club: 'sandwich-jambon',
+  croque: 'tranches-pain',
+  hotdog: 'baguettes',
+  wrap: 'salade-bol',
+  salade: 'salade-bol',
+  verrine: 'salade-bol',
+  quiche: 'quiche',
+  prefou: 'tranches-pain',
+  beignet: 'plateau-douceurs',
+  cannele: 'vitrine-chocolat',
+  choux: 'etals-patisseries',
+  parisbrest: 'etals-patisseries',
+  far: 'pain-plateau-rond',
+  cup: 'cafe-tasse',
+  numbercake: 'tartes-fruits',
+  poplarbox: 'etals-patisseries',
+  lices: 'marche-etals',
+  market: 'marche-legumes',
+  salon: 'salle-bois',
 }
 export const photoForIllustration = (key: string): Photo | undefined => {
   const s = byIllustration[key]
@@ -99,4 +128,29 @@ export const photoForIllustration = (key: string): Photo | undefined => {
 /** <img> markup with intrinsic size, lazy loading and the site's cover style. */
 export function photoImg(p: Photo, cls = 'photo', eager = false): string {
   return `<img class="${cls}" src="${p.src}" alt="${p.alt}" width="${p.w}" height="${p.h}" loading="${eager ? 'eager' : 'lazy'}" decoding="async">`
+}
+
+/** Slim decorative photo band (FAQ, legal pages, contact): 2-4 photos, captioned once. */
+export function photoBand(slugs: string[], caption = 'Photos d’illustration (Unsplash), pas la boutique'): string {
+  return `<div class="photo-band-slim" data-count="${slugs.length}">${slugs.map((s) => `<figure>${photoImg(photo(s))}</figure>`).join('')}</div><p class="photo-band-cap">${caption}</p>`
+}
+
+/** Single captioned figure with the « Photo d’illustration » tag. */
+export function photoFigure(slug: string, cls = 'ph-fig', caption?: string): string {
+  const p = photo(slug)
+  return `<figure class="${cls}">${photoImg(p)}<span class="photo-tag">Photo d’illustration</span>${caption === '' ? '' : `<figcaption>${caption ?? p.alt}</figcaption>`}</figure>`
+}
+
+/** Journal cover photo: per-article choice first, then the illustration mapping. */
+const byPost: Record<string, string> = {
+  'choc-o-roi-du-chateau-au-campus': 'vitrine-chocolat',
+  'un-samedi-aux-lices-un-gouter-au-thabor': 'marche-etals',
+  'anti-gaspi-les-paniers-du-soir': 'cagette-pains',
+  'commander-la-veille-avant-18-h': 'pain-sac-kraft',
+  'kouign-amann-notre-facon': 'croissants-table',
+  'galette-des-rois-preparez-lepiphanie': 'rouleau-patissier',
+}
+export const photoForPost = (slug: string, illustration: string): Photo | undefined => {
+  const s = byPost[slug]
+  return s ? bySlug.get(s) : photoForIllustration(illustration)
 }

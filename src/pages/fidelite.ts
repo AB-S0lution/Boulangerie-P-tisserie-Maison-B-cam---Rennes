@@ -3,6 +3,7 @@ import { loyaltyRules, rewardLadder } from '../data/loyalty'
 import { business } from '../data/business'
 import { pageHead } from '../core/parts'
 import { tapisserie } from '../core/art'
+import { photoFigure } from '../data/photos'
 
 const main = `
 ${pageHead('Les <span class="it">Lys d’Or</span>', 'Le programme de fidélité du réseau Maison Bécam.', 'Les Lys d’Or', 'fidelite')}
@@ -15,7 +16,8 @@ ${pageHead('Les <span class="it">Lys d’Or</span>', 'Le programme de fidélité
 </div></section>
 <section class="section tight" aria-labelledby="l-h"><div class="container">
   <h2 id="l-h" data-split>Un exemple de récompenses</h2><p class="muted" style="margin:12px 0 24px"><span class="tag-sample">exemple</span> Cette échelle est une illustration, pas le barème du réseau.</p>
-  <div class="ladder" style="max-width:720px">${rewardLadder.map((r) => `<div data-reveal><span class="n">${r.lys}</span><span>${r.label}</span><span class="tag-sample">exemple</span></div>`).join('')}</div>
+  <div class="two ladder-wrap"><div class="ladder">${rewardLadder.map((r) => `<div data-reveal><span class="n">${r.lys}</span><span>${r.label}</span><span class="tag-sample">exemple</span></div>`).join('')}</div>
+  ${photoFigure('croissants-table', 'ph-fig tall', 'Une viennoiserie offerte, par exemple. Photo d’illustration (Unsplash).')}</div>
 </div></section>`
 
 boot({ nav: 'fidelite/', main })

@@ -11,6 +11,7 @@ import { pageHead } from '../core/parts'
 import { gsap } from '../core/motion'
 import { prefersReducedMotion } from '../core/dom'
 import type { Product } from '../data/products'
+import { photo, photoImg } from '../data/photos'
 
 type Tab = 'tout' | Product['cat'] | 'boissons' | 'saison'
 const tabs: [Tab, string][] = [
@@ -76,10 +77,16 @@ function filtered(): Product[] {
   return list
 }
 
+function netPane(g: string, i: number): string {
+  const slug = g === 'Boissons chaudes' ? (i % 2 ? 'cafe-table-noire' : 'cafe-tasse') : g === 'Biscuits' ? 'plateau-douceurs' : ''
+  if (slug) return `<div class="pane has-photo">${photoImg({ ...photo(slug), alt: '' })}<span class="photo-tag">Photo d’illustration</span></div>`
+  return `<div class="pane">${illo(g === 'Pizzas' ? 'tartefine' : 'verrine')}</div>`
+}
+
 function renderNetwork(): string {
   const groups = Array.from(new Set(networkProducts.map((n) => n.group)))
   return `<div class="warn" style="margin-bottom:20px">Catalogue du réseau Maison Bécam (maisonbecam.com). Disponibilité et prix à Rennes à confirmer : « Selon disponibilité ». Les pizzas ont été évoquées par la presse à l’ouverture mais ne figurent pas au Click &amp; Collect de Rennes.</div>
-  ${groups.map((g) => `<h3 style="margin:28px 0 12px">${g}</h3><div class="pgrid">${networkProducts.filter((n) => n.group === g).map((n) => `<article class="pcard"><div class="pane">${illo(g === 'Pizzas' ? 'tartefine' : g === 'Boissons chaudes' ? 'cup' : g === 'Biscuits' ? 'cookie' : 'verrine')}</div><div class="body"><h3>${esc(n.name)}</h3><p class="tg">Selon disponibilité</p><div class="row"><span class="price">${n.priceCents ? money(n.priceCents) : 'Prix à confirmer'}</span></div></div></article>`).join('')}</div>`).join('')}`
+  ${groups.map((g) => `<h3 style="margin:28px 0 12px">${g}</h3><div class="pgrid">${networkProducts.filter((n) => n.group === g).map((n, i) => `<article class="pcard">${netPane(g, i)}<div class="body"><h3>${esc(n.name)}</h3><p class="tg">Selon disponibilité</p><div class="row"><span class="price">${n.priceCents ? money(n.priceCents) : 'Prix à confirmer'}</span></div></div></article>`).join('')}</div>`).join('')}`
 }
 
 function render(): void {

@@ -1,10 +1,12 @@
 import { boot } from '../core/shell'
 import { business } from '../data/business'
 import { pageHead } from '../core/parts'
+import { photoBand } from '../data/photos'
 
 const main = `
 ${pageHead('Mentions <span class="it">légales</span>', 'Site de démonstration non officiel.', 'Mentions légales', 'mentions')}
 <section class="section tight legal"><div class="container">
+  ${photoBand(['pains-gros-plan', 'comptoir-vitrine', 'rouleau-patissier'])}
   <h2>Nature du site</h2><p>Ce site est une démonstration de design non officielle de la boutique Maison Bécam de Rennes. Il n’est pas édité par le réseau Maison Bécam ni par la société exploitante. Aucune commande n’y est possible. Aucun logo, tapisserie ni photographie du réseau n’est reproduit : les illustrations sont originales.</p>
   <h2>Exploitant de la boutique</h2>
   <ul><li>${business.legalName} ${business.legalForm}, capital de ${business.capital}</li><li>SIREN ${business.siren} · SIRET ${business.siret} · ${business.rcs}</li><li>Siège et boutique : ${business.address.street}, ${business.address.postalCode} ${business.address.city}</li><li>Téléphone : ${business.phone.display}</li><li>Activité : boulangerie et boulangerie-pâtisserie (NAF ${business.naf})</li></ul>

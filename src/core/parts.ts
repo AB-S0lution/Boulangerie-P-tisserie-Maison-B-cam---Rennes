@@ -7,7 +7,7 @@ import { posts, type Post } from '../data/journal'
 import { reviews } from '../data/reviews'
 import { illo, mapBase, tapisserie } from './art'
 import { esc, formatDateFR, parisNow, url } from './dom'
-import { photoForIllustration, photoImg } from '../data/photos'
+import { photoForPost, photoImg } from '../data/photos'
 
 export function pageHead(title: string, lead: string, crumb: string, id: string): string {
   return `<section class="page-head">
@@ -35,7 +35,7 @@ export function hoursTable(): string {
 }
 
 export function postCard(p: Post): string {
-  const ph = photoForIllustration(p.illustration)
+  const ph = photoForPost(p.slug, p.illustration)
   return `<a class="post-card" href="${url(`journal/article/?a=${p.slug}`)}" data-reveal>
     <div class="pane${ph ? ' has-photo' : ''}">${ph ? `${photoImg({ ...ph, alt: '' })}<span class="photo-tag">Photo d’illustration</span>` : illo(p.illustration)}</div>
     <div class="body"><p class="meta">${p.category} · ${formatDateFR(p.date)} · ${p.readingTime} min</p><h3>${esc(p.title)}</h3><p class="muted small">${esc(p.excerpt)}</p></div>

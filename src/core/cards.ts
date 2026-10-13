@@ -69,7 +69,10 @@ export function productSheetParts(p: Product): { pane: string; rest: string } {
     p.tags?.includes('vegetarien') ? '<p class="note">De la gamme Happy, la gamme végétarienne de la carte.</p>' : '',
     p.tags?.includes('bio') ? '<p class="note">Bio* : certaines boulangeries du réseau sont en cours de certification bio. À confirmer en boutique.</p>' : '',
   ].join('')
-  const pane = `<div class="sheet-pane">${illo(p.illustration, `Illustration : ${p.name}`)}</div>`
+  const ph = photoForIllustration(p.illustration)
+  const pane = ph
+    ? `<div class="sheet-pane has-photo">${photoImg({ ...ph, alt: `Photo d’illustration pour ${p.name} : ${ph.alt}` })}<span class="photo-tag">Photo d’illustration</span><div class="sheet-illo" aria-hidden="true">${illo(p.illustration, '')}</div></div>`
+    : `<div class="sheet-pane">${illo(p.illustration, `Illustration : ${p.name}`)}</div>`
   const rest = `<div>
       <div class="chips">${(p.tags ?? []).map((t) => `<span class="chip ${t === 'signature' ? 'gold' : ''}">${tagLabels[t]}</span>`).join('')}<span class="chip">${catLabels[p.cat]}</span></div>
       <h2 style="margin-top:12px">${esc(p.name)}</h2>

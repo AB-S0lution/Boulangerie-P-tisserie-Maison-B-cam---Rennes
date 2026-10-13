@@ -2,7 +2,7 @@
 // Layers follow the OFFICIAL composition (Bakeronline): Pâte sucrée Fleur de Lys / Sablé breton chocolat / Crème pâtissière Choc'O Roi.
 // The pinch of Guérande fleur de sel comes from the press and the entremet sheet.
 
-import { gsap, ScrollTrigger } from './motion'
+import { gsap, MQ, ScrollTrigger } from './motion'
 import { lysPath } from './art'
 import { prefersReducedMotion } from './dom'
 
@@ -67,7 +67,28 @@ export function mountBuild(root: HTMLElement): void {
   }
 
   const mm = gsap.matchMedia()
-  mm.add('(prefers-reduced-motion: no-preference)', () => {
+  const setup = (light: boolean) => {
+    gsap.set('.l-sable, .l-cream, .l-top, .l-lid', { opacity: 0 })
+    gsap.set('.l-sable', { y: light ? 50 : 90 })
+    gsap.set('.cream-top, .cream-side', { transformOrigin: '50% 50%', scaleX: 0.15 })
+    gsap.set('.l-cream', { y: 0 })
+    gsap.set('.salt', { y: light ? -80 : -140, opacity: 0 })
+    gsap.set('.l-top', { y: light ? -100 : -170 })
+    gsap.set('.l-lid', { y: light ? -120 : -220 })
+  }
+  const steps = (tl: gsap.core.Timeline) => tl
+    .to('.l-sable', { y: 0, opacity: 1, duration: 1 })
+    .to('.l-cream', { opacity: 1, duration: 0.2 }, '>-0.3')
+    .to('.cream-top, .cream-side', { scaleX: 1, duration: 1 }, '<')
+    .to('.salt', { y: 0, opacity: 1, duration: 0.9, stagger: { each: 0.04, from: 'random' } })
+    .to('.l-top', { y: 0, opacity: 1, duration: 1, ease: 'power3.in' })
+    .fromTo('.stamp', { scale: 3.4 }, { scale: 2.5, duration: 0.35, ease: 'back.out(3)' })
+    .to('.l-lid', { y: 0, opacity: 1, duration: 1, ease: 'power3.out' })
+
+  // Desktop pointer: pinned, scrubbed exploded view.
+  mm.add(`${MQ.desktop} and (min-height: 600px)`, () => {
+    root.classList.remove('no-pin')
+    setup(false)
     const tl = gsap.timeline({
       defaults: { ease: 'power2.out' },
       scrollTrigger: {
@@ -75,21 +96,21 @@ export function mountBuild(root: HTMLElement): void {
         onUpdate: (self) => setOn(Math.ceil(self.progress * items.length * 1.02)),
       },
     })
-    gsap.set('.l-sable, .l-cream, .l-top, .l-lid', { opacity: 0 })
-    gsap.set('.l-sable', { y: 90 })
-    gsap.set('.cream-top, .cream-side', { transformOrigin: '50% 50%', scaleX: 0.15 })
-    gsap.set('.l-cream', { y: 0 })
-    gsap.set('.salt', { y: -140, opacity: 0 })
-    gsap.set('.l-top', { y: -170 })
-    gsap.set('.l-lid', { y: -220 })
-    tl.to('.l-sable', { y: 0, opacity: 1, duration: 1 })
-      .to('.l-cream', { opacity: 1, duration: 0.2 }, '>-0.3')
-      .to('.cream-top, .cream-side', { scaleX: 1, duration: 1 }, '<')
-      .to('.salt', { y: 0, opacity: 1, duration: 0.9, stagger: { each: 0.04, from: 'random' } })
-      .to('.l-top', { y: 0, opacity: 1, duration: 1, ease: 'power3.in' })
-      .fromTo('.stamp', { scale: 3.4 }, { scale: 2.5, duration: 0.35, ease: 'back.out(3)' })
-      .to('.l-lid', { y: 0, opacity: 1, duration: 1, ease: 'power3.out' })
-      .to({}, { duration: 0.5 })
+    steps(tl).to({}, { duration: 0.5 })
+    return () => { tl.scrollTrigger?.kill(); tl.kill() }
+  })
+  // Phones, tablets, short screens: no pin. The box assembles itself once, as the stage scrolls into view,
+  // and the list lights up in step (same story, a third of the scroll distance, nothing to get stuck in).
+  mm.add('(prefers-reduced-motion: no-preference) and (max-width: 899px), (prefers-reduced-motion: no-preference) and (pointer: coarse), (prefers-reduced-motion: no-preference) and (max-height: 599px)', () => {
+    root.classList.add('no-pin')
+    setup(true)
+    const tl = gsap.timeline({
+      defaults: { ease: 'power2.out' },
+      onUpdate: () => setOn(Math.ceil(tl.progress() * items.length * 1.02)),
+      scrollTrigger: { trigger: stage, start: 'top 80%', toggleActions: 'play none none none' },
+    })
+    steps(tl)
+    tl.timeScale(1.6)
     return () => { tl.scrollTrigger?.kill(); tl.kill() }
   })
   ScrollTrigger.refresh()
