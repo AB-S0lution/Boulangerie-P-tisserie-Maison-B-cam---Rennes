@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Le Choc’O Roi, couche par couche | Maison Bécam Rennes</title>
+    <meta name="description" content="La signature de Maison Bécam : sablé breton, crème pâtissière, fleur de sel et fleur de lys, né à Angers en 2013." />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#023b58" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#011d2c" />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Maison Bécam Rennes (démonstration non officielle)" />
+    <meta property="og:title" content="Le Choc’O Roi, couche par couche" />
+    <meta property="og:description" content="La signature de Maison Bécam : sablé breton, crème pâtissière, fleur de sel et fleur de lys, né à Angers en 2013." />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      (function () {
+        var d = document.documentElement;
+        try { var t = localStorage.getItem('bec-theme'); if (t && t !== 'auto') d.setAttribute('data-theme', t); } catch (e) {}
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          d.classList.add('js-motion');
+          try { if (sessionStorage.getItem('bec-door') === '1') d.classList.add('door-in'); } catch (e) {}
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <noscript><p style="padding:24px;font-family:sans-serif">Maison Bécam Rennes, 69 rue Jean Guéhenno, 35700 Rennes. Tél. 02 21 65 61 00. Ouvert tous les jours de 7 h à 20 h. Ce site de démonstration a besoin de JavaScript.</p></noscript>
+    <script type="module" src="/src/pages/choc.ts"></script>
+  </body>
+</html>

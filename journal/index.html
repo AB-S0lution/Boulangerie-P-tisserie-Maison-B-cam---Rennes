@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Journal de la maison | Maison Bécam Rennes</title>
+    <meta name="description" content="Coulisses du fournil, saisons, quartier, recettes et conseils. Articles d’exemple." />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#023b58" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#011d2c" />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Maison Bécam Rennes (démonstration non officielle)" />
+    <meta property="og:title" content="Journal de la maison" />
+    <meta property="og:description" content="Coulisses du fournil, saisons, quartier, recettes et conseils. Articles d’exemple." />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      (function () {
+        var d = document.documentElement;
+        try { var t = localStorage.getItem('bec-theme'); if (t && t !== 'auto') d.setAttribute('data-theme', t); } catch (e) {}
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          d.classList.add('js-motion');
+          try { if (sessionStorage.getItem('bec-door') === '1') d.classList.add('door-in'); } catch (e) {}
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <noscript><p style="padding:24px;font-family:sans-serif">Maison Bécam Rennes, 69 rue Jean Guéhenno, 35700 Rennes. Tél. 02 21 65 61 00. Ouvert tous les jours de 7 h à 20 h. Ce site de démonstration a besoin de JavaScript.</p></noscript>
+    <script type="module" src="/src/pages/journal.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Contact et accès | Maison Bécam Rennes</title>
+    <meta name="description" content="69 rue Jean Guéhenno, 35700 Rennes. Téléphone 02 21 65 61 00. Ouvert tous les jours de 7 h à 20 h." />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#023b58" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#011d2c" />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Maison Bécam Rennes (démonstration non officielle)" />
+    <meta property="og:title" content="Contact et accès" />
+    <meta property="og:description" content="69 rue Jean Guéhenno, 35700 Rennes. Téléphone 02 21 65 61 00. Ouvert tous les jours de 7 h à 20 h." />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      (function () {
+        var d = document.documentElement;
+        try { var t = localStorage.getItem('bec-theme'); if (t && t !== 'auto') d.setAttribute('data-theme', t); } catch (e) {}
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          d.classList.add('js-motion');
+          try { if (sessionStorage.getItem('bec-door') === '1') d.classList.add('door-in'); } catch (e) {}
+        }
+      })();
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Bakery","name":"Boulangerie Pâtisserie Maison Bécam - Rennes","legalName":"BB FERRY","address":{"@type":"PostalAddress","streetAddress":"69 rue Jean Guéhenno","postalCode":"35700","addressLocality":"Rennes","addressCountry":"FR"},"geo":{"@type":"GeoCoordinates","latitude":48.118358,"longitude":-1.671279},"telephone":"+33221656100","priceRange":"€","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"07:00","closes":"20:00"}],"hasMap":"https://www.google.com/maps/place/?q=place_id:ChIJPf3YDyjfDkgROOvn1ag6A68","sameAs":["https://www.instagram.com/maison_becam/","https://www.facebook.com/maison.becam/"]}</script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <noscript><p style="padding:24px;font-family:sans-serif">Maison Bécam Rennes, 69 rue Jean Guéhenno, 35700 Rennes. Tél. 02 21 65 61 00. Ouvert tous les jours de 7 h à 20 h. Ce site de démonstration a besoin de JavaScript.</p></noscript>
+    <script type="module" src="/src/pages/contact.ts"></script>
+  </body>
+</html>
