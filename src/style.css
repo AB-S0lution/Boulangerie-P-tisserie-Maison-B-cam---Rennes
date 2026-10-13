@@ -714,3 +714,12 @@ figure figcaption { font-size: 0.78rem; color: var(--text-2); margin-top: 8px; l
 .photo-trio { display: grid; gap: 12px; }
 @media (min-width: 700px) { .photo-trio { grid-template-columns: repeat(3, 1fr); } }
 .photo-trio img.photo { aspect-ratio: 4 / 5; height: auto; }
+
+/* ---------- phone pass: tap targets ≥ 44px, readable notes, slimmer sticky dial ---------- */
+.btn.sm, .dial-quick button { min-height: 44px; }
+.wordmark { min-height: 44px; justify-content: center; }
+[data-theme-btn] { min-height: 44px; padding-inline: 4px; }
+@media (max-width: 640px) {
+  .q-src, .form-note, .warn, p.note, .post-card .meta, figure figcaption { font-size: 0.875rem; }
+  .dial.mini.sticky .dial-in { padding-block: 6px 8px; gap: 2px; }
+}
