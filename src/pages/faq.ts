@@ -10,7 +10,7 @@ const main = `
 ${pageHead('Questions <span class="it">fréquentes</span>', '14 réponses sur les horaires, les commandes, la carte et le lieu.', 'FAQ', 'faq')}
 <section class="section tight"><div class="container" style="max-width:860px">
   <div class="field" style="max-width:none;margin-bottom:24px"><label class="sr" for="fq">Rechercher dans la FAQ</label><input id="fq" type="search" placeholder="Rechercher : dimanche, allergènes, brunch" autocomplete="off"></div>
-  <p class="result-count" role="status" aria-live="polite" data-n></p>
+  <p class="result-count" role="status" aria-live="polite" data-faq-count></p>
   <div class="faq-list" data-faq></div>
   <div style="margin-top:40px">${photoBand(['pain-vitrine-verre', 'croissant-blanc', 'cafe-tasse'], 'Une autre question ? Appelez la boutique. Photos d’illustration (Unsplash).')}</div>
 </div></section>`
@@ -24,7 +24,7 @@ const link = (f: (typeof faq)[number]) => {
 }
 
 function render(q: string): void {
-  const el = $('[data-faq]'); const n = $('[data-n]')
+  const el = $('[data-faq]'); const n = $('[data-faq-count]')
   if (!el || !n) return
   const list = faq.filter((f) => !q || norm(f.q + f.a).includes(norm(q)))
   n.textContent = `${list.length} réponse${list.length > 1 ? 's' : ''}`

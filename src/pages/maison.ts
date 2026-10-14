@@ -44,7 +44,7 @@ ${pageHead('La maison, <span class="it">de l’Anjou à Rennes</span>', 'Une bou
 
 <section class="section" aria-labelledby="e-h"><div class="container">
   ${secHead('L’équipe', 'Des métiers, pas de noms : l’équipe s’est montée en 2025 avec 15 recrutements.').replace('<h2 ', '<h2 id="e-h" ')}
-  <div class="three">${teamFacts.map((f) => `<div class="box" data-reveal><span style="font-family:var(--font-display);font-size:3.4rem;line-height:1;color:var(--accent-text)">${f.value}</span><b>${f.label}</b><p class="small muted">${f.note}</p></div>`).join('')}</div>
+  <div class="three trio">${teamFacts.map((f) => `<div class="box" data-reveal><span style="font-family:var(--font-display);font-size:3.4rem;line-height:1;color:var(--accent-text)">${f.value}</span><b>${f.label}</b><p class="small muted">${f.note}</p></div>`).join('')}</div>
   <div class="three" style="margin-top:14px">${roles.map((r) => `<div class="box has-photo" data-reveal>${photoFigure(rolePhoto[r.id] ?? 'fournil-verriere', 'ph-fig box-ph', '')}<h3>${r.title}</h3><p class="muted">${r.text}</p><span class="tag-sample" style="justify-self:start">texte d’exemple</span></div>`).join('')}</div>
   <div class="btn-row" style="margin-top:28px"><a class="btn" href="${business.urls.recruitment}" target="_blank" rel="noopener">Offres d’emploi du réseau<span class="sr"> (nouvel onglet)</span></a>${commanderBtn('gold')}</div>
   <p class="small muted" style="margin-top:14px">Le réseau propose des apprentissages en boulangerie, pâtisserie, snacking et vente.</p>

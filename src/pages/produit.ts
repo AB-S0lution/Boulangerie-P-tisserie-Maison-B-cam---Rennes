@@ -19,7 +19,7 @@ const main = p
 <section class="section tight"><div class="container"><div class="fiche">${productSheetParts(p).pane}<div style="display:grid;gap:18px;align-content:start">${productSheetParts(p).rest}</div></div>
   <div class="chips" style="margin-top:32px"><span class="label" style="margin-right:8px">Aussi à</span>${hours.map((d) => `<a class="chip" href="${url('la-journee/')}">${d.hour}</a>`).join('')}</div>
 </div></section>
-<section class="section tight"><div class="container"><h2 style="margin-bottom:24px">Dans la même catégorie</h2><div class="pgrid">${related.map((x) => productCard(x, { open: false })).join('')}</div>
+<section class="section tight"><div class="container"><h2 style="margin-bottom:24px">Dans la même catégorie</h2><div class="pgrid related">${related.map((x) => productCard(x, { open: false })).join('')}</div>
   <div class="btn-row" style="margin-top:28px"><a class="btn" href="${url('la-carte/?cat=' + p.cat)}">Toute la ${catLabels[p.cat].toLowerCase()}</a><a class="btn ghost" href="${business.urls.clickAndCollect}" target="_blank" rel="noopener">Commander<span class="sr"> (nouvel onglet)</span></a></div></div></section>`
   : `<section class="section"><div class="container"><div class="empty">${illo('croissant')}<h1 style="font-size:2rem">Cette fournée n’existe pas</h1><p class="muted">Ce produit est introuvable : <code>${esc(slug)}</code></p><a class="btn" href="${url('la-carte/')}">Retour à la carte</a></div></div></section>`
 

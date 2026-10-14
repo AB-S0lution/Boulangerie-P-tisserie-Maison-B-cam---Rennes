@@ -42,7 +42,7 @@ ${dialHTML(true)}
         <button type="button" class="toggle" data-hour aria-pressed="false">À l’heure du cadran</button>
         ${tagFilters.map(([k, l]) => `<button type="button" class="toggle" data-tag="${k}" aria-pressed="false">${l}</button>`).join('')}
       </div>
-      <p class="result-count" role="status" aria-live="polite" data-count></p>
+      <p class="result-count" role="status" aria-live="polite" data-result-count></p>
     </div>
     <div data-results></div>
     <div class="box" style="margin-top:36px" data-reveal>
@@ -91,7 +91,7 @@ function renderNetwork(): string {
 
 function render(): void {
   const res = $('[data-results]')
-  const cnt = $('[data-count]')
+  const cnt = $('[data-result-count]')
   if (!res || !cnt) return
   if (state.tab === 'boissons') {
     setHTML(res, renderNetwork())

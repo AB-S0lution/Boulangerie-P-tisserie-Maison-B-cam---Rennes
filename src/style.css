@@ -574,11 +574,18 @@ dialog.sheet[open]::backdrop { opacity: 1; }
 .note { font-size: 0.8rem; color: var(--text-2); border-left: 2px solid var(--or); padding-left: 12px; }
 .warn { font-size: 0.85rem; padding: 10px 12px; border: 1px solid var(--or); border-radius: var(--radius); background: color-mix(in srgb, var(--or) 14%, transparent); }
 .fiche { display: grid; gap: 28px; } @media (min-width: 900px) { .fiche { grid-template-columns: 1fr 1fr; gap: 56px; } }
-.fiche .sheet-pane { position: sticky; top: calc(var(--header-h) + 20px); align-self: start; }
+@media (min-width: 900px) { .fiche .sheet-pane { position: sticky; top: calc(var(--header-h) + 20px); align-self: start; } }
 
 /* ---------- generic content ---------- */
 .two { display: grid; gap: 28px; } @media (min-width: 900px) { .two { grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; } }
 .three { display: grid; gap: 14px; } @media (min-width: 800px) { .three { grid-template-columns: repeat(3, 1fr); } }
+/* Tablets (600-799): two columns instead of a stretched phone column; an odd last box spans the row. */
+@media (min-width: 600px) and (max-width: 799px) { .three { grid-template-columns: repeat(2, minmax(0, 1fr)); } .three > :last-child:nth-child(odd) { grid-column: 1 / -1; } .three.trio { grid-template-columns: repeat(3, minmax(0, 1fr)); } .three.trio > :last-child { grid-column: auto; } }
+/* Four items: 2 x 2, then 4 in a row (never 3 + 1). */
+@media (min-width: 600px) { .three.quad { grid-template-columns: repeat(2, minmax(0, 1fr)); } .three.quad > :last-child { grid-column: auto; } }
+@media (min-width: 1100px) { .three.quad { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+/* Related products: 3 columns between 720 and 1099 px, so show 3 of the 4 (no lone card). */
+@media (min-width: 720px) and (max-width: 1099px) { .pgrid.related > :nth-child(4) { display: none; } }
 .box { border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius); padding: 22px; display: grid; gap: 10px; align-content: start; }
 .box h3 { font-size: 1.5rem; }
 .box.navy { background: var(--bleu); color: #fff; border-color: var(--bleu); --text-2: #cbd9e1; } .box.navy p { color: #dbe6ec; }
@@ -740,9 +747,9 @@ figure figcaption { font-size: 0.78rem; color: var(--text-2); margin-top: 8px; l
 .box-ph img.photo { aspect-ratio: 16 / 9; border-radius: 0; }
 .photo-band-slim { display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 8px; }
 @media (min-width: 640px) { .photo-band-slim { grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); } }
-.photo-band-slim[data-count="2"] { --n: 2; } .photo-band-slim[data-count="4"] { --n: 4; }
-.photo-band-slim[data-count="3"] > :first-child { grid-column: 1 / -1; }
-@media (min-width: 640px) { .photo-band-slim[data-count="3"] > :first-child { grid-column: auto; } }
+.photo-band-slim[data-photos="2"] { --n: 2; } .photo-band-slim[data-photos="4"] { --n: 4; }
+.photo-band-slim[data-photos="3"] > :first-child { grid-column: 1 / -1; }
+@media (min-width: 640px) { .photo-band-slim[data-photos="3"] > :first-child { grid-column: auto; } }
 .photo-band-slim img.photo { aspect-ratio: 16 / 9; height: auto; max-height: 220px; }
 .photo-band-cap { font-size: 0.875rem; color: var(--text-2); margin-bottom: 8px; }
 .legal .photo-band-cap { margin-bottom: 0; }
@@ -752,7 +759,8 @@ figure figcaption { font-size: 0.78rem; color: var(--text-2); margin-top: 8px; l
 .sheet-pane .sheet-illo .illo, .article-cover .sheet-illo .illo { width: 80%; height: 80%; }
 .article-cover { position: relative; margin: 0 0 32px; }
 .article-cover img.photo { aspect-ratio: 16 / 9; height: auto; }
-.article-cover .sheet-illo { bottom: 44px; }
+.article-cover .sheet-illo { bottom: auto; top: 10px; }
+.article-cover .photo-tag { bottom: auto; top: 8px; }
 .article-cover.art { display: grid; place-items: center; aspect-ratio: 16 / 8; background: var(--tint-matin); border: 1px solid var(--line); }
 .article-cover.art .illo { width: 30%; }
 img.photo.thumb { width: 100%; height: 100%; aspect-ratio: 1; border-radius: 0; }

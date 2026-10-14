@@ -38,7 +38,7 @@ ${pageHead('Commandes et <span class="it">événements</span>', 'Plateaux apéri
 <section class="section" aria-labelledby="c-h"><div class="container">
   ${secHead('Comment commander').replace('<h2 ', '<h2 id="c-h" ')}
   <ol class="steps" style="max-width:720px"><li><div><b>Choisissez dans la carte</b><span>Préparez « Ma liste » ou notez les références. <span class="tag-sample">exemple</span></span></div></li><li><div><b>Commandez en ligne avant 18 h</b><span>Retrait le lendemain, de 7 h à 20 h.</span></div></li><li><div><b>Une demande particulière ?</b><span>Appelez le ${business.phone.display} (adresse e-mail de la boutique à confirmer).</span></div></li></ol>
-  <div class="three" style="margin-top:36px">${occ.map(([t, d], i) => `<div class="box has-photo" data-reveal>${photoFigure(occPhotos[i], 'ph-fig box-ph', '')}<h3>${t}</h3><p class="muted">${d}</p><span class="tag-sample" style="justify-self:start">idée d’exemple</span></div>`).join('')}</div>
+  <div class="three quad" style="margin-top:36px">${occ.map(([t, d], i) => `<div class="box has-photo" data-reveal>${photoFigure(occPhotos[i], 'ph-fig box-ph', '')}<h3>${t}</h3><p class="muted">${d}</p><span class="tag-sample" style="justify-self:start">idée d’exemple</span></div>`).join('')}</div>
   <div class="btn-row" style="margin-top:32px">${commanderBtn('gold')}<a class="btn" href="tel:${business.phone.tel}">Appeler le ${business.phone.display}</a><a class="btn ghost" href="${url('click-and-collect/')}">Ma liste</a></div>
 </div></section>`
 

@@ -56,7 +56,7 @@ function header(nav?: string): string {
     <nav class="main-nav" aria-label="Navigation principale">${mainNav.map(link).join('')}</nav>
     <div class="head-right">
       <span class="status" tabindex="0" role="status" data-status><i></i><span class="txt"></span><span class="tip">${holidayNote}</span></span>
-      <a class="list-link" href="${url('click-and-collect/')}" aria-label="Ma liste (Click et Collect)">${listSvg}<span class="count" data-n="0" data-count>0</span></a>
+      <a class="list-link" href="${url('click-and-collect/')}" aria-label="Ma liste (Click et Collect)">${listSvg}<span class="count" data-n="0" data-list-count>0</span></a>
       <a class="btn gold sm cta-head" href="${business.urls.clickAndCollect}" target="_blank" rel="noopener">Commander<span class="sr"> (nouvel onglet)</span></a>
       <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu">${burgerSvg}</button>
     </div>
@@ -107,7 +107,7 @@ function updateStatus(): void {
 
 function updateCount(): void {
   const n = listCount()
-  $$('[data-count]').forEach((c) => { c.textContent = String(n); c.setAttribute('data-n', String(n)) })
+  $$('[data-list-count]').forEach((c) => { c.textContent = String(n); c.setAttribute('data-n', String(n)) })
 }
 
 function setupMenu(): void {

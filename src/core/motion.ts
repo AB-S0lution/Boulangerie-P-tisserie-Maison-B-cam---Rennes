@@ -70,13 +70,32 @@ export function initReveals(root: ParentNode = document): void {
       })
     })
     document.documentElement.classList.add('motion-ready')
-    // Safety net: anything in or above the viewport that is still hidden after 4 s is shown.
-    window.setTimeout(() => {
-      $$('[data-reveal]', root).forEach((el) => {
-        if (el.getBoundingClientRect().top < window.innerHeight && getComputedStyle(el).opacity === '0') gsap.to(el, { opacity: 1, y: 0, duration: 0.4 })
-      })
-      $$('[data-split]', root).forEach((el) => { el.style.visibility = 'visible' })
-    }, 4000)
+    // Safety net, re-run every time scrolling stops (and after load): anything in or above the
+    // viewport that is still hidden is shown; at the page end everything is shown. It queries the
+    // DOM fresh each time, so cards inserted later (filters, query-string pages) are covered too.
+    const sweep = (): void => {
+      const vh = window.innerHeight
+      const atEnd = window.scrollY + vh >= document.documentElement.scrollHeight - 8
+      const late = $$('[data-reveal]', root).filter((el) => getComputedStyle(el).opacity === '0' && !gsap.isTweening(el) && (atEnd || el.getBoundingClientRect().top < vh))
+      if (late.length) gsap.to(late, { opacity: 1, y: 0, duration: 0.45, ease: 'expo.out', stagger: 0.03, overwrite: true })
+      $$('[data-split]', root).forEach((el) => { if (atEnd || el.getBoundingClientRect().top < vh) el.style.visibility = 'visible' })
+    }
+    let idle = 0
+    window.addEventListener('scroll', () => { window.clearTimeout(idle); idle = window.setTimeout(sweep, 220) }, { passive: true })
+    window.setTimeout(sweep, 2500)
+    // Late-inserted reveal targets get their own one-shot trigger.
+    if (root instanceof Node && 'MutationObserver' in window) {
+      new MutationObserver((recs) => {
+        const fresh: HTMLElement[] = []
+        recs.forEach((r) => r.addedNodes.forEach((n) => {
+          if (!(n instanceof HTMLElement)) return
+          if (n.matches('[data-reveal]')) fresh.push(n)
+          fresh.push(...$$('[data-reveal]', n))
+        }))
+        fresh.forEach((el) => ScrollTrigger.create({ trigger: el, start: light ? 'top 94%' : 'top 90%', once: true, onEnter: () => gsap.to(el, { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out', overwrite: true }) }))
+        if (fresh.length) { window.clearTimeout(idle); idle = window.setTimeout(sweep, 400) }
+      }).observe(root, { childList: true, subtree: true })
+    }
   } catch {
     document.documentElement.classList.remove('js-motion')
     revealAll(root)

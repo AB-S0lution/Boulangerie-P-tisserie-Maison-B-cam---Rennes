@@ -132,7 +132,7 @@ export function photoImg(p: Photo, cls = 'photo', eager = false): string {
 
 /** Slim decorative photo band (FAQ, legal pages, contact): 2-4 photos, captioned once. */
 export function photoBand(slugs: string[], caption = 'Photos d’illustration (Unsplash), pas la boutique'): string {
-  return `<div class="photo-band-slim" data-count="${slugs.length}">${slugs.map((s) => `<figure>${photoImg(photo(s))}</figure>`).join('')}</div><p class="photo-band-cap">${caption}</p>`
+  return `<div class="photo-band-slim" data-photos="${slugs.length}">${slugs.map((s) => `<figure>${photoImg(photo(s))}</figure>`).join('')}</div><p class="photo-band-cap">${caption}</p>`
 }
 
 /** Single captioned figure with the « Photo d’illustration » tag. */
